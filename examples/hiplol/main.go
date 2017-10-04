@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/tbruyelle/hipchat-go/hipchat"
+	"github.com/sleeper/hipchat-go/hipchat"
 )
 
 var (

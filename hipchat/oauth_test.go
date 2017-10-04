@@ -77,3 +77,29 @@ func TestCreateClientFromAccessToken(t *testing.T) {
 		)
 	}
 }
+
+func TestCreateClientFromAccessTokenAndServerURL(t *testing.T) {
+	token := OAuthAccessToken{
+		AccessToken: "q0M8p3UrBL96uHb79x4qdR2r6oEnCeajcg123456",
+		ExpiresIn:   3599,
+		GroupID:     123456,
+		GroupName:   "TestGroup",
+		Scope:       "send_notification view_room",
+		TokenType:   "bearer",
+	}
+	serverURL := "http://foo.bar.com"
+
+	client := token.CreateClientWithServerURL(serverURL)
+
+	if client.BaseURL.String() != serverURL {
+		t.Errorf("CreateClientWithServerURL BaseURL %s, want %s", client.BaseURL.String(), serverURL)
+	}
+
+	if client.authToken != token.AccessToken {
+		t.Fatalf(
+			"Client auth token does not match access token: %v != %v",
+			client.authToken,
+			token.AccessToken,
+		)
+	}
+}

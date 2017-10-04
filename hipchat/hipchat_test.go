@@ -78,6 +78,22 @@ func TestNewClient(t *testing.T) {
 	}
 }
 
+func TestNewClientWithServerURL(t *testing.T) {
+	authToken := "AuthToken"
+	serverURL := "http://foo.bar.com"
+
+	c := NewClientWithServerURL(serverURL, authToken)
+
+	if c.authToken != authToken {
+		t.Errorf("NewClientWithServerURL authToken %s, want %s", c.authToken, authToken)
+	}
+	if c.BaseURL.String() != serverURL {
+		t.Errorf("NewClientWithServerURL BaseURL %s, want %s", c.BaseURL.String(), serverURL)
+	}
+	if c.client != http.DefaultClient {
+		t.Errorf("SetHTTPClient client %v, want %p", c.client, http.DefaultClient)
+	}
+}
 func TestSetHTTPClient(t *testing.T) {
 	c := NewClient("AuthToken")
 

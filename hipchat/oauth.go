@@ -25,7 +25,12 @@ type OAuthAccessToken struct {
 	TokenType   string `json:"token_type"`
 }
 
-// CreateClient creates a new client from this OAuth token
+// CreateClientWithServerURL creates a new client from this OAuth token on the passed Hipchat Server
+func (t *OAuthAccessToken) CreateClientWithServerURL(serverURL string) *Client {
+	return NewClientWithServerURL(serverURL, t.AccessToken)
+}
+
+// CreateClient creates a new client from this OAuth token on default server (hipchat.com)
 func (t *OAuthAccessToken) CreateClient() *Client {
 	return NewClient(t.AccessToken)
 }
